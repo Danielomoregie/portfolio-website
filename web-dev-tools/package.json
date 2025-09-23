@@ -1,0 +1,47 @@
+{
+  "name": "web-dev-tools",
+  "version": "1.0.0",
+  "description": "A collection of reusable components, utilities, and tools for modern web development",
+  "main": "js/tools.js",
+  "style": "css/tools.css",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'No build process needed for vanilla JS/CSS'",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "web-development",
+    "utilities",
+    "components",
+    "css",
+    "javascript",
+    "vanilla",
+    "responsive",
+    "accessibility"
+  ],
+  "author": "Daniel Omoregie",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Danielomoregie/web-dev-tools"
+  },
+  "homepage": "https://danielomoregie.github.io/web-dev-tools",
+  "files": [
+    "css/",
+    "js/",
+    "examples/",
+    "README.md",
+    "LICENSE"
+  ],
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
