@@ -1,7 +1,7 @@
-# Hi there, I'm Daniel Omoregie! 👋
+# Yo, I'm Daniel Omoregie!
 
 <div align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=1E3A8A&center=true&vCenter=true&width=435&lines=Computer+Science+Student;NASA+Intern;Content+Creator;Problem+Solver;Always+Learning" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=1E3A8A&center=true&vCenter=true&width=435&lines=Computer+Science+Student;Software+Engineer+Intern;Content+Creator;Problem+Solver;Always+Learning" alt="Typing SVG" />
 </div>
 
 ## 🚀 About Me
