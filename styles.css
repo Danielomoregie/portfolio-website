@@ -1544,16 +1544,27 @@ section {
     }
     
     .loading-logo {
-        font-size: clamp(2rem, 6vw, 3rem);
-        letter-spacing: clamp(1px, 1.5vw, 3px);
+        font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+        letter-spacing: clamp(0.5px, 1vw, 2px);
         transform: skew(-4deg);
         padding: 0 var(--spacing-xs);
-        line-height: 1.2;
+        line-height: 1.1;
+        word-break: keep-all;
+        white-space: nowrap;
     }
     
     .loading-content {
         padding: 0 var(--spacing-sm);
         max-width: 90vw;
+    }
+}
+
+/* Extra small phones (iPhone SE, etc.) */
+@media (max-width: 360px) {
+    .loading-logo {
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        letter-spacing: clamp(0.3px, 0.8vw, 1.5px);
+        line-height: 1.0;
     }
     
     .dot {
