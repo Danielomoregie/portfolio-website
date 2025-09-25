@@ -17,10 +17,43 @@ img {
     display: block;
 }
 
-/* Touch-friendly improvements */
+/* iOS 26 Compatibility */
+@supports (backdrop-filter: blur(20px)) {
+    .navbar {
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+    }
+}
+
+/* iOS 26 Dynamic Island and Notch Support */
+@supports (padding: max(0px)) {
+    .hero {
+        padding-top: max(70px, env(safe-area-inset-top));
+    }
+    
+    .navbar {
+        padding-top: env(safe-area-inset-top);
+    }
+}
+
+/* Touch-friendly improvements for iOS 26 */
 button, a, input, textarea {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* iOS 26 Haptic Feedback Support */
+@media (hover: none) and (pointer: coarse) {
+    button, a {
+        transition: transform 0.1s ease;
+    }
+    
+    button:active, a:active {
+        transform: scale(0.95);
+    }
 }
 
 /* Prevent horizontal scroll */
@@ -32,6 +65,22 @@ body {
 html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+}
+
+/* iOS 26 Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+}
+
+/* iOS 26 Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* Focus styles for accessibility */
@@ -110,6 +159,18 @@ body {
     align-items: center;
     z-index: 10000;
     transition: opacity 0.5s ease, visibility 0.5s ease;
+    /* iOS 26 Support */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+}
+
+/* iOS 26 Loading Screen Enhancements */
+@supports (-webkit-touch-callout: none) {
+    .loading-screen {
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
 }
 
 .loading-screen.hidden {
@@ -124,15 +185,18 @@ body {
 
 .loading-logo {
     font-family: var(--font-modern);
-    font-size: 6rem;
+    font-size: clamp(2.5rem, 8vw, 6rem);
     font-weight: 700;
     color: #FFFFFF;
     margin-bottom: var(--spacing-xl);
-    letter-spacing: 8px;
+    letter-spacing: clamp(2px, 2vw, 8px);
     transform: skew(-8deg);
     text-transform: uppercase;
     animation: pulse 2s ease-in-out infinite;
     text-shadow: 0 0 20px rgba(30, 58, 138, 0.5);
+    text-align: center;
+    padding: 0 var(--spacing-sm);
+    word-break: break-word;
 }
 
 .loading-dots {
@@ -300,6 +364,7 @@ body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    padding-top: 70px;
 }
 
 .hero-background {
@@ -345,6 +410,8 @@ body {
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: var(--spacing-md);
+    word-spacing: -0.1em;
+    letter-spacing: -0.02em;
 }
 
 .title-line {
@@ -525,7 +592,7 @@ body {
 
 .scroll-indicator {
     position: absolute;
-    bottom: var(--spacing-xl);
+    bottom: var(--spacing-lg);
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -1250,7 +1317,12 @@ section {
     .floating-card {
         width: 100px;
         padding: var(--spacing-sm);
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+    }
+    
+    .card-content h3 {
+        font-size: 0.85rem;
+        line-height: 1.2;
     }
     
     .hero-title {
@@ -1343,6 +1415,39 @@ section {
     }
 }
 
+/* iOS 26 Specific Styles */
+@supports (-webkit-touch-callout: none) {
+    .hero {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .navbar {
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        backdrop-filter: blur(20px) saturate(180%);
+    }
+    
+    .floating-card {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+}
+
+/* iOS 26 Dynamic Island Support */
+@supports (padding: max(0px)) {
+    .hero {
+        padding-top: max(90px, calc(env(safe-area-inset-top) + 20px));
+    }
+    
+    .navbar {
+        padding-top: env(safe-area-inset-top);
+        height: calc(70px + env(safe-area-inset-top));
+    }
+    
+    .nav-container {
+        height: 70px;
+    }
+}
+
 /* Mobile Phones */
 @media (max-width: 480px) {
     .container {
@@ -1354,7 +1459,8 @@ section {
     }
     
     .hero-title {
-        font-size: clamp(2rem, 10vw, 2.8rem);
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+        line-height: 1.1;
     }
     
     .hero-subtitle {
@@ -1366,14 +1472,25 @@ section {
         line-height: 1.6;
     }
     
+    .hero {
+        padding-top: 90px;
+        min-height: calc(100vh - 10px);
+    }
+    
     .hero-visual {
-        height: 300px;
+        height: 320px;
         gap: var(--spacing-md);
+        margin-top: var(--spacing-md);
     }
     
     .hero-image {
         width: 140px;
         height: 140px;
+        margin-top: var(--spacing-sm);
+    }
+    
+    .scroll-indicator {
+        bottom: var(--spacing-md);
     }
     
     .floating-cards-container {
@@ -1385,15 +1502,16 @@ section {
     .floating-card {
         width: 80px;
         padding: var(--spacing-xs);
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
     
     .card-content i {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     
     .card-content h3 {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
+        line-height: 1.2;
     }
     
     .btn {
@@ -1426,9 +1544,16 @@ section {
     }
     
     .loading-logo {
-        font-size: 3rem;
-        letter-spacing: 3px;
+        font-size: clamp(2rem, 6vw, 3rem);
+        letter-spacing: clamp(1px, 1.5vw, 3px);
         transform: skew(-4deg);
+        padding: 0 var(--spacing-xs);
+        line-height: 1.2;
+    }
+    
+    .loading-content {
+        padding: 0 var(--spacing-sm);
+        max-width: 90vw;
     }
     
     .dot {
@@ -1444,22 +1569,38 @@ section {
     }
     
     .hero-title {
-        font-size: 1.8rem;
+        font-size: clamp(1.5rem, 7vw, 1.8rem);
+        line-height: 1.1;
+    }
+    
+    .hero {
+        padding-top: 100px;
     }
     
     .hero-image {
         width: 120px;
         height: 120px;
+        margin-top: var(--spacing-md);
+    }
+    
+    .scroll-indicator {
+        bottom: var(--spacing-sm);
+        font-size: 0.8rem;
     }
     
     .floating-card {
         width: 70px;
         padding: var(--spacing-xs);
-        font-size: 0.75rem;
+        font-size: 0.65rem;
     }
     
     .card-content i {
-        font-size: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .card-content h3 {
+        font-size: 0.7rem;
+        line-height: 1.1;
     }
     
     .btn {
