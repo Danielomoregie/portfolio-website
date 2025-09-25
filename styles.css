@@ -14,11 +14,24 @@
 img {
     max-width: 100%;
     height: auto;
+    display: block;
+}
+
+/* Touch-friendly improvements */
+button, a, input, textarea {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Prevent horizontal scroll */
+body {
+    overflow-x: hidden;
 }
 
 /* Smooth scrolling for all browsers */
 html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
 }
 
 /* Focus styles for accessibility */
@@ -228,6 +241,13 @@ body {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    padding: var(--spacing-xs);
+    border-radius: 4px;
+    transition: var(--transition-medium);
+}
+
+.hamburger:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .bar {
@@ -236,6 +256,7 @@ body {
     background: var(--text-primary);
     margin: 3px 0;
     transition: var(--transition-medium);
+    border-radius: 2px;
 }
 
 /* Theme Toggle */
@@ -1154,6 +1175,27 @@ section {
 }
 
 /* Responsive Design */
+
+/* Large Tablets and Small Desktops */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
+    
+    .hero-content {
+        gap: var(--spacing-xl);
+    }
+    
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .resume .container {
+        max-width: 500px;
+    }
+}
+
+/* Tablets */
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
@@ -1183,27 +1225,44 @@ section {
     .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: var(--spacing-lg);
     }
     
     .hero-visual {
         height: 400px;
         gap: var(--spacing-lg);
+        order: -1;
     }
     
     .hero-image {
-        width: 150px;
-        height: 150px;
+        width: 180px;
+        height: 180px;
         animation: floatImage 6s ease-in-out infinite;
     }
     
     .floating-cards-container {
-        flex-direction: column;
+        flex-direction: row;
         gap: var(--spacing-sm);
+        justify-content: center;
+        flex-wrap: wrap;
     }
     
     .floating-card {
-        width: 120px;
-        padding: var(--spacing-md);
+        width: 100px;
+        padding: var(--spacing-sm);
+        font-size: 0.9rem;
+    }
+    
+    .hero-title {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
     }
     
     .about-content {
@@ -1249,55 +1308,203 @@ section {
     }
 }
 
+/* Small Tablets */
+@media (max-width: 600px) {
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .hero-visual {
+        height: 350px;
+    }
+    
+    .hero-image {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .floating-cards-container {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .floating-card {
+        width: 120px;
+        padding: var(--spacing-sm);
+    }
+    
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .resume .container {
+        max-width: 400px;
+    }
+}
+
+/* Mobile Phones */
 @media (max-width: 480px) {
     .container {
         padding: 0 var(--spacing-sm);
     }
     
     .section-title {
-        font-size: 2rem;
+        font-size: clamp(1.8rem, 8vw, 2.2rem);
     }
     
     .hero-title {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 10vw, 2.8rem);
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .hero-description {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .hero-visual {
+        height: 300px;
+        gap: var(--spacing-md);
+    }
+    
+    .hero-image {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .floating-cards-container {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: var(--spacing-xs);
     }
     
     .floating-card {
-        padding: var(--spacing-md);
+        width: 80px;
+        padding: var(--spacing-xs);
+        font-size: 0.8rem;
     }
     
     .card-content i {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
     
     .card-content h3 {
-        font-size: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .btn {
+        width: 180px;
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.9rem;
+    }
+    
+    .portfolio-item {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .contact-icon {
+        margin: 0 auto;
+    }
+    
+    .resume .container {
+        max-width: 350px;
+        padding: 0 var(--spacing-sm);
+    }
+    
+    .download-card {
+        padding: var(--spacing-lg);
+    }
+    
+    .loading-logo {
+        font-size: 3rem;
+        letter-spacing: 3px;
+        transform: skew(-4deg);
+    }
+    
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+/* Extra Small Mobile Phones */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 var(--spacing-xs);
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
     }
     
     .hero-image {
         width: 120px;
         height: 120px;
-        animation: floatImage 6s ease-in-out infinite;
     }
     
     .floating-card {
+        width: 70px;
+        padding: var(--spacing-xs);
+        font-size: 0.75rem;
+    }
+    
+    .card-content i {
+        font-size: 1rem;
+    }
+    
+    .btn {
+        width: 160px;
+        font-size: 0.85rem;
+    }
+    
+    .resume .container {
+        max-width: 300px;
+    }
+    
+    .download-card {
+        padding: var(--spacing-md);
+    }
+}
+
+/* Landscape Mobile Phones */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: 100vh;
+        padding: var(--spacing-md) 0;
+    }
+    
+    .hero-visual {
+        height: 250px;
+    }
+    
+    .hero-image {
         width: 100px;
-        padding: var(--spacing-sm);
+        height: 100px;
     }
     
-    .floating-card i {
-        font-size: 1.2rem;
+    .floating-cards-container {
+        flex-direction: row;
+        gap: var(--spacing-xs);
     }
     
-    .loading-logo {
-        font-size: 3.5rem;
-        
-        ter-spacing: 5px;
-        transform: skew(-6deg);
+    .floating-card {
+        width: 60px;
+        padding: var(--spacing-xs);
+        font-size: 0.7rem;
     }
     
-    .dot {
-        width: 10px;
-        height: 10px;
+    .resume {
+        min-height: 100vh;
+        padding: var(--spacing-md) 0;
     }
 }
