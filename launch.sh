@@ -1,68 +1,55 @@
 #!/bin/bash
 
-# Daniel Omoregie Portfolio Website Launcher
-# This script starts a local server to view the portfolio website
+# Daniel Omoregie Portfolio Launcher
+# This script starts the local server and opens the website automatically
 
-echo "🚀 Starting Daniel Omoregie's Portfolio Website..."
-echo "📍 Location: $(pwd)"
-echo ""
+echo "🚀 Starting Daniel Omoregie Portfolio..."
+echo "========================================"
 
-# Function to try different ports
-try_port() {
-    local port=$1
-    local command=$2
-    echo "🌐 Trying port $port..."
+# Kill any existing server on port 8080
+echo "🔍 Checking for existing server..."
+lsof -ti:8080 | xargs kill -9 2>/dev/null || true
+
+# Start the server in the background
+echo "🌐 Starting local server on port 8080..."
+python3 -m http.server 8080 &
+SERVER_PID=$!
+
+# Wait for server to start
+echo "⏳ Waiting for server to start..."
+sleep 3
+
+# Check if server is running
+if ps -p $SERVER_PID > /dev/null; then
+    echo "✅ Server started successfully!"
+    echo "🌍 Opening website in your default browser..."
     
-    # Check if port is available
-    if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; then
-        echo "⚠️  Port $port is already in use, trying next port..."
-        return 1
+    # Open the website
+    if command -v open >/dev/null 2>&1; then
+        # macOS
+        open http://localhost:8080
+    elif command -v xdg-open >/dev/null 2>&1; then
+        # Linux
+        xdg-open http://localhost:8080
+    elif command -v start >/dev/null 2>&1; then
+        # Windows
+        start http://localhost:8080
+    else
+        echo "❌ Could not automatically open browser"
+        echo "🌐 Please manually open: http://localhost:8080"
     fi
     
-    echo "✅ Starting server on port $port"
-    echo "🌐 Server will be available at: http://localhost:$port"
-    echo "⏹️  Press Ctrl+C to stop the server"
     echo ""
+    echo "🎉 Portfolio is now running!"
+    echo "📍 Local URL: http://localhost:8080"
+    echo "📱 Mobile URL: http://$(ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -1):8080"
+    echo ""
+    echo "Press Ctrl+C to stop the server"
     
-    eval $command
-    return 0
-}
-
-# Kill any existing Python servers
-pkill -f "python.*http.server" 2>/dev/null
-
-# Try different ports and methods
-if command -v python3 &> /dev/null; then
-    echo "✅ Python 3 found"
-    for port in 3000 8000 8080 9000; do
-        if try_port $port "python3 -m http.server $port"; then
-            exit 0
-        fi
-    done
-elif command -v python &> /dev/null; then
-    echo "✅ Python found"
-    for port in 3000 8000 8080 9000; do
-        if try_port $port "python -m http.server $port"; then
-            exit 0
-        fi
-    done
-elif command -v node &> /dev/null; then
-    echo "✅ Node.js found, using custom server"
-    for port in 3000 8000 8080 9000; do
-        if try_port $port "node server.js"; then
-            exit 0
-        fi
-    done
+    # Keep the script running and show server output
+    wait $SERVER_PID
 else
-    echo "❌ No suitable server found."
-    echo "💡 Options:"
-    echo "   1. Install Python: brew install python3"
-    echo "   2. Install Node.js: brew install node"
-    echo "   3. Use VS Code Live Server extension"
-    echo "   4. Open index.html directly in your browser"
-    echo "   5. Use any other local server tool"
+    echo "❌ Failed to start server"
+    echo "🔧 Please check if port 8080 is available"
     exit 1
 fi
-
-echo "❌ Could not start server on any available port"
-echo "💡 Try opening index.html directly in your browser"

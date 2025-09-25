@@ -4,10 +4,13 @@
   "description": "A luxury-inspired portfolio website combining Rolex and Apple aesthetics with smooth animations",
   "main": "index.html",
   "scripts": {
-    "start": "python3 -m http.server 8000",
-    "dev": "python3 -m http.server 8000",
+    "start": "./launch.sh",
+    "dev": "./launch.sh",
     "build": "echo 'No build process needed for static site'",
-    "serve": "python3 -m http.server 8000"
+    "serve": "./launch.sh",
+    "run": "./launch.sh",
+    "open": "open http://localhost:8080",
+    "windows": "launch.bat"
   },
   "keywords": [
     "portfolio",
